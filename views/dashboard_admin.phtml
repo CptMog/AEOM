@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <title>AEOM</title>
+</head>
+<body>
+    <!-- -------- Navigation bar ----- -->
+    <header>
+        <a href="index.php" class="logo">AEOM</a>
+            <nav>
+                <ul>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="">A propos</a></li>
+                    <li><a href="blog.php">Blog</a></li>
+                    <li><a href="evenement.php">Évènements</a></li>
+                    <li><a href="">Annonces</a></li>
+                    <li><a href="">Donation</a></li>
+                </ul>
+            </nav>
+            <div class="bloc_co">
+                <?php if($objUser->getLogin() == null): ?>
+                    <a href="registerUser.php"><i class="fas fa-user-circle"></i></a>
+                <?php elseif($objUser->getLogin() != null): ?>
+                    <a href="registerUser.php"><span><?= $objUser->getLogin() ?></span></a>
+                    <a href="logOut.php"><i class="fas fa-sign-out-alt"></i></a>
+                <?php endif ?>
+            </div>
+    </header>
+    <main class="dashboard">
+        <div class="container">
+            <div class="side_menu">
+                <ul>
+                    <a href="dashboardAdmin.php?user=1"><li>Utilisateurs</li></a>
+                    <a href="dashboardAdmin.php?article=1"><li>Articles</li></a>
+                    <a href="dashboardAdmin.php?remark=1"><li>Commentaires</li></a>
+                    <a href="dashboardAdmin.php?event=1"><li>Évènements</li></a>
+                </ul>
+            </div>
+            <div class="content">
+                <h1>Bienvenu sur votre espace d'administration</h1> 
+                <?php if(empty($_GET)): ?>
+                    <h2>Veuillez utiliser la navigation sur le côté pour naviguer dans l'espace</h2>
+                <?php else: ?>
+                    <?php if(!empty($_GET['user'])): ?>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Utilisateur</th>
+                                    <th>Modifier</th>
+                                    <th>Supprimer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($elems as $elem): ?>
+                                <tr id="el-<?= $elem['id'] ?>">
+                                    <td><?= $elem['login'] ?></td>
+                                    <td><button><a href="">Mofifier</a></button></td>
+                                    <td><button class="del" data-id="<?= $elem['id'] ?>">Supprimer</button></td>
+                                </tr>
+                                <?php endforeach ?>
+                            </tbody>
+                        </table>
+                    <?php endif ?>
+                    <?php if(!empty($_GET['article'])): ?>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Titre</th>
+                                    <th>commentaire</th>
+                                    <th>Supprimer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($elems as $elem): ?>
+                                <tr id="el-<?= $elem[0] ?>">
+                                    <td><a href="article.php?id=<?= $elem[0] ?>"><?= $elem[1] ?></a></td>
+                                    <td><?= $elem[2] ?> commentaire(s)</td>
+                                    <td><button class="del" data-id="<?= $elem[0] ?>">Supprimer</button></td>
+                                </tr>
+                                <?php endforeach ?>
+                            </tbody>
+                        </table>
+                    <?php endif ?>
+
+                    <?php if(!empty($_GET['remark'])): ?>
+                        <table class="tab_remark">
+                            <thead>
+                                <tr>
+                                    <th>resumer</th>
+                                    <th>Utilisateur</th>
+                                    <th>Article</th>
+                                    <th>Supprimer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($elems as $elem): ?>
+                                <tr id="el-">
+                                    <td><?= $elem[0] ?></td>
+                                    <td><?= $elem[1] ?></td>
+                                    <td><?= $elem[2] ?></td>
+                                    <td><button class="del" data-id="">Supprimer</button></td>
+                                </tr>
+                                <?php endforeach ?>
+                            </tbody>
+                        </table>
+                    <?php endif ?>
+
+                    <?php if(!empty($_GET['event'])): ?>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Titre</th>
+                                    <th>Modifier</th>
+                                    <th>Supprimer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($elems as $elem): ?>
+                                <tr id="el-<?= $elem['id'] ?>">
+                                    <td><?= $elem['title'] ?></td>
+                                    <td><button><a href="dashbordAdmin.php?update=<?= $elem['id']?>">Mofifier</a></button></td>
+                                    <td><button class="del" data-id="">Supprimer</button></td>
+                                </tr>
+                                <?php endforeach ?>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td><a href="dashbordAdmin.php?create=1"><button>Créer un évènement</button></a></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    <?php endif ?>
+                <?php endif ?>
+            </div>
+        </div>
+    </main>
+    <!-- <script src="assets/js/article_action.js"></script> -->
+</body>
+</html>

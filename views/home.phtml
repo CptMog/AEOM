@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/calendar.js"></script>
+    <script src="assets/js/accordion.js"></script>
+    <title>AEOM</title>
+</head>
+<body>
+    <!-- -------- Navigation bar ----- -->
+    <header class="main_menu">
+        <a href="index.php" class="logo">AEOM</a>
+        <!-- <div class="navigation"> -->
+        <!-- <i class="fas fa-times"></i> -->
+            <nav>
+                <ul>
+                    <li class="active"><a href="index.php">Home</a></li>
+                    <li><a href="">A propos</a></li>
+                    <li><a href="blog.php">Blog</a></li>
+                    <li><a href="evenement.php">Évènements</a></li>
+                    <li><a href="">Annonces</a></li>
+                    <li><a href="">Donation</a></li>
+                </ul>
+            </nav>
+            <div class="bloc_co">
+                <?php if($user == ""): ?>
+                    <a href="registerUser.php"><i class="fas fa-user-circle"></i></a>
+                <?php elseif($user != ""): ?>
+                    <a href="registerUser.php"><span><?= $user ?></span></a>
+                    <a href="logOut.php"><i class="fas fa-sign-out-alt"></i></a>
+                <?php endif; ?>
+            </div>
+            
+        <!-- </div> -->
+        <!-- <i class="fas fa-bars"></i> -->
+    </header>
+
+    <!-- ----------Slider------------ -->
+    <div class="slide_container">
+        <div class="slide s1">
+            <h1>Vous êtes unique et vos besoin aussi</h1>
+            <p>Nous accompagnons les étudiants dans leur demarche afin de
+            les aider aux mieux. Besoin d'aide ?</p>
+            <button>Contactez-nous</button>
+        </div>
+
+        <div class="slide s2">
+            <h1>Nous vous aidons dans toute vaux démarche administrative</h1>
+            <p>Nous accompagnons les étudiants dans leur demarche afin de
+            les aider aux mieux. Besoin d'aide ?</p>
+            <button>Contactez-nous</button>
+        </div>
+
+        <div class="slide s3">
+            <h1>Besoin d'un soutient scolaire ? </h1>
+            <p>Nous vous mettons en relation avec d'autres étudiant membres qui peuvent vous aider et vous accompagner</p>
+            <button>Contactez-nous</button>
+        </div>
+        <i class="fas arrow arw_left fa-chevron-circle-left"></i>
+        <i class="fas arrow arw_right fa-chevron-circle-right"></i>
+    </div>
+    <main class="resume">
+        <section>
+            <div class="container">
+                <h2>Faits intéressant sur nous !</h2>
+                <div class="wrapper">
+                    <div>
+                        <img src="assets/img/img1.jpg"  alt="image">
+                    </div>
+                    <div>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum incidunt est error illum asperiores, blanditiis porro unde, expedita non voluptas aspernatur quis, eligendi inventore illo autem similique vitae quos. Eligendi quis saepe quae fuga quasi ut natus mollitia facilis corporis.</p>
+                        <a href="" class="button_link">En savoir plus</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <div class="wrapper">
+                    <div>
+                        <strong class="important">45</strong>
+                    </div>
+                    <div>
+                        <h2>Quelque chiffres</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum voluptatibus earum tenetur, odit quae molestiae vitae vero architecto cupiditate. Similique, asperiores nesciunt ducimus doloribus aliquam at voluptate, iste nam quod aut, sint quam. Repellendus cum nulla nisi quisquam, saepe non?</p>
+                        <a href="#remarks">vos avis</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <h2 class="underline">Nos actualités</h2>
+                <div class="flex">
+                    <?php  foreach($articles as $article): ?>
+                    <div>
+                        <?php if($article['image'] != ""): ?>
+                            <img src="assets/img/upload/<?= $article['image'] ?>" alt="image">
+                        <?php else: ?>
+                            <img src="https://picsum.photos/200" alt="image">
+                        <?php endif ?>
+                        <a href="article.php?id=<?= $article['id'] ?>"><h3><?= $article['title'] ?></h3></a>
+                        <!-- <p><?= $article['date'] ?></p> -->
+                        <p>
+                            <?php 
+                                $tiny = substr($article['content'],0,40);
+                                echo $tiny.'...';
+                            ?>
+                        </p>            
+                    </div>
+                    <?php endforeach ?>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <h2 class="underline">Prochaint évènement</h2>
+                <div id="event_box">
+                   
+                    <h3><?= $event['date_begin'].':     '.$event['title'] ?></h3>
+                    <div>
+                        <p><?= $event['content'] ?></p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <h2>Calendrier des évènements du mois</h2>
+                <div id="calendar"></div>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <h2 id="remarks">Vos avis</h2>
+                <div class="slider">
+
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer></footer>
+
+</body>
+</html>

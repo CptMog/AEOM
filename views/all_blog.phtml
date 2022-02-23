@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>AEOM</title>
+</head>
+<body>
+    <!-- -------- Navigation bar ----- -->
+    <header>
+        <a href="index.php" class="logo">AEOM</a>
+            <nav>
+                <ul>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="">A propos</a></li>
+                    <li><a href="blog.php" class="active">Blog</a></li>
+                    <li><a href="evenement.php">Évènements</a></li>
+                    <li><a href="">Annonces</a></li>
+                    <li><a href="">Donation</a></li>
+                </ul>
+            </nav>
+            <div class="bloc_co">
+                <?php if($user == ""): ?>
+                    <a href="registerUser.php"><i class="fas fa-user-circle"></i></a>
+                <?php elseif($user != ""): ?>
+                    <a href="registerUser.php"><span><?= $user ?></span></a>
+                    <a href="logOut.php"><i class="fas fa-sign-out-alt"></i></a>
+                <?php endif ?>
+            </div>
+    </header>
+    <main class="blog">
+        <h1>Tous nos articles</h1>
+        <?php foreach($articles as $article):  ?>
+            <section>
+                <div class="container">
+                    <h2><?= $article['title'] ?></h2>
+                    <?php if($article['image'] != ""): ?>
+                            <img src="assets/img/upload/<?= $article['image'] ?>" alt="image">
+                        <?php else: ?>
+                            <img src="https://picsum.photos/200" alt="image">
+                        <?php endif ?>
+                    <p>
+                        <?php 
+                            $tiny = substr($article['content'],0,130);
+                            echo $tiny.'...';
+                        ?>
+                    </p>
+                    <a href="article.php?id=<?= $article['id'] ?>" class="button_link">Lire</a>
+                    <div class="clear"></div>
+                </div>
+            </section>
+            <hr>
+        <?php endforeach ?>
+        <a href="" class="button_link">Voir plus</a>
+    </main>
+</body>
+</html>
